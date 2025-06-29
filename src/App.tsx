@@ -436,8 +436,31 @@ function App() {
     );
     if (idx === -1) idx = 0;
     currentSunPoint = sunPoints[idx];
-    sunPos = [currentSunPoint.lat, currentSunPoint.lon];
     planePos = [currentSunPoint.lat, currentSunPoint.lon];
+
+    // Calculate actual sun position in the sky for the current time
+    const sun = SunCalc.getPosition(
+      mapTime,
+      currentSunPoint.lat,
+      currentSunPoint.lon
+    );
+    const sunAzimuth = (sun.azimuth * 180) / Math.PI + 180;
+    const sunAltitude = (sun.altitude * 180) / Math.PI;
+
+    // Only show sun if it's above horizon (altitude > 0)
+    if (sunAltitude > 0) {
+      // Calculate sun position in the sky using a more visible projection
+      // Use a larger distance to make the sun more visible on the map
+      const sunDistance = 5000; // 5000 km to make sun visible
+      const sunLat =
+        currentSunPoint.lat +
+        (sunDistance * Math.cos((sunAzimuth * Math.PI) / 180)) / 111000;
+      const sunLon =
+        currentSunPoint.lon +
+        (sunDistance * Math.sin((sunAzimuth * Math.PI) / 180)) /
+          (111000 * Math.cos((currentSunPoint.lat * Math.PI) / 180));
+      sunPos = [sunLat, sunLon];
+    }
   }
 
   // Subsolar point and day/night terminator

@@ -67,6 +67,7 @@ const FlightMap: React.FC<FlightMapProps> = ({
   terminatorPoints,
   planePos,
   sunPos,
+  currentSunPoint,
   minTime,
   maxTime,
 }) => {
@@ -164,22 +165,34 @@ const FlightMap: React.FC<FlightMapProps> = ({
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
-          {/* Flight path */}
+          {/* Main flight path - direct connection */}
+          {flightPath.length > 0 && (
+            <Polyline
+              positions={flightPath}
+              pathOptions={{
+                color: "#a855f7",
+                weight: 4,
+                opacity: 0.9,
+              }}
+            />
+          )}
+
+          {/* Segmented flight path (optional - for showing different phases) */}
           {flightPathSegments.length > 0 &&
             flightPathSegments.map((segment, index) => (
               <Polyline
-                key={index}
+                key={`segment-${index}`}
                 positions={segment}
                 pathOptions={{
-                  color: "#a855f7",
-                  weight: 4,
+                  color: "#8b5cf6",
+                  weight: 2,
                   dashArray: "8, 4",
-                  opacity: 0.9,
+                  opacity: 0.6,
                 }}
               />
             ))}
 
-          {flightPath.length > 0 && <FitBounds bounds={flightPath as any} />}
+          {flightPath.length > 0 && <FitBounds bounds={flightPath} />}
 
           {/* Departure airport marker */}
           {sourceAirport && (
@@ -267,13 +280,29 @@ const FlightMap: React.FC<FlightMapProps> = ({
               pathOptions={{
                 color: "#f59e0b",
                 fillColor: "#f59e0b",
-                fillOpacity: 0.5,
+                fillOpacity: 0.8,
+                weight: 3,
               }}
-              radius={7}
+              radius={12}
             >
               <Popup>
                 <div className="font-bold text-amber-500 text-sm sm:text-base">
                   ☀️ Sun Position
+                </div>
+                <div className="text-xs sm:text-sm text-gray-300 mt-1">
+                  {currentSunPoint && (
+                    <>
+                      <div>
+                        Altitude: {currentSunPoint.altitude.toFixed(1)}°
+                      </div>
+                      <div>Azimuth: {currentSunPoint.azimuth.toFixed(1)}°</div>
+                      <div className="text-amber-400 font-medium">
+                        {currentSunPoint.altitude > 0
+                          ? "☀️ Above Horizon"
+                          : "🌙 Below Horizon"}
+                      </div>
+                    </>
+                  )}
                 </div>
               </Popup>
             </CircleMarker>
