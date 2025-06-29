@@ -447,21 +447,26 @@ function App() {
   // Render main app UI
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white flex flex-col font-sans">
-      <header className="py-4 shadow-lg bg-black/40 backdrop-blur-lg border-b border-purple-500/30 sticky top-0 z-10">
-        <div className="container mx-auto flex items-center justify-between px-4">
-          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-3 text-white">
+      <header className="py-3 sm:py-4 shadow-lg bg-black/40 backdrop-blur-lg border-b border-purple-500/30 sticky top-0 z-10">
+        <div className="container mx-auto flex items-center justify-between px-3 sm:px-4 lg:px-6">
+          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight flex items-center gap-2 sm:gap-3 text-white">
             <span className="inline-flex items-center justify-center bg-white p-1 rounded-xl shadow-md">
-              <img src="/icon.png" alt="Seat Ray Icon" className="w-8 h-8" />
+              <img
+                src="/icon.png"
+                alt="Seat Ray Icon"
+                className="w-6 h-6 sm:w-8 sm:h-8"
+              />
             </span>
-            Seat Ray
+            <span className="hidden sm:inline">Seat Ray</span>
+            <span className="sm:hidden">SR</span>
           </h1>
         </div>
       </header>
-      <main className=" w-[80%] mx-auto px-4 py-8">
-        <div className="flex flex-col gap-6 w-full">
+      <main className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+        <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full">
           {/* Flight Details Section */}
-          <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/30 p-6 flex flex-col gap-6">
-            <h2 className="text-xl font-bold text-white border-b border-purple-500/30 pb-2">
+          <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-purple-500/30 p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
+            <h2 className="text-lg sm:text-xl font-bold text-white border-b border-purple-500/30 pb-2">
               Flight Details
             </h2>
             <FlightForm
@@ -487,25 +492,27 @@ function App() {
 
           {/* Loading Skeleton Section */}
           {(loading || geminiLoading) && (
-            <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/30 p-6 flex flex-col gap-6">
+            <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-purple-500/30 p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
               <div className="border-b border-purple-500/30 text-white pb-2">
-                <div className="h-8 bg-slate-700 rounded animate-pulse mb-2"></div>
-                <div className="h-4 bg-slate-700 rounded animate-pulse w-3/4"></div>
+                <div className="h-6 sm:h-8 bg-slate-700 rounded animate-pulse mb-2"></div>
+                <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-3/4"></div>
               </div>
-              <div className="w-full h-96 bg-slate-700 rounded-lg animate-pulse flex items-center justify-center">
-                <div className="text-slate-400 text-lg">Loading map...</div>
+              <div className="w-full h-64 sm:h-80 lg:h-96 bg-slate-700 rounded-lg animate-pulse flex items-center justify-center">
+                <div className="text-slate-400 text-sm sm:text-lg">
+                  Loading map...
+                </div>
               </div>
-              <div className="space-y-4">
-                <div className="h-6 bg-slate-700 rounded animate-pulse w-1/3"></div>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="h-5 sm:h-6 bg-slate-700 rounded animate-pulse w-1/3"></div>
                 <div className="space-y-2">
-                  <div className="h-4 bg-slate-700 rounded animate-pulse"></div>
-                  <div className="h-4 bg-slate-700 rounded animate-pulse w-5/6"></div>
-                  <div className="h-4 bg-slate-700 rounded animate-pulse w-4/6"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-5/6"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-4/6"></div>
                 </div>
                 <div className="space-y-2">
-                  <div className="h-4 bg-slate-700 rounded animate-pulse w-1/4"></div>
-                  <div className="h-4 bg-slate-700 rounded animate-pulse w-3/4"></div>
-                  <div className="h-4 bg-slate-700 rounded animate-pulse w-2/3"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-1/4"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-3/4"></div>
+                  <div className="h-3 sm:h-4 bg-slate-700 rounded animate-pulse w-2/3"></div>
                 </div>
               </div>
             </section>
@@ -513,16 +520,18 @@ function App() {
 
           {/* Flight Path & Sun Position Section */}
           {geminiAnalysis && (
-            <div className="space-y-6">
-              <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/30 p-6 flex flex-col gap-6">
+            <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+              <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-purple-500/30 p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
                 {recommendation && (
-                  <div className="border-b  border-purple-500/30  text-white  pb-2">
-                    <h2 className="text-xl font-bold text-purple-400">
+                  <div className="border-b border-purple-500/30 text-white pb-2">
+                    <h2 className="text-lg sm:text-xl font-bold text-purple-400">
                       Best Seat at flight :{" "}
                       <span className="text-white">{recommendation}</span>
                     </h2>
                     {geminiAnalysis && (
-                      <p className="text-sm  my-2">{geminiAnalysis.analysis}</p>
+                      <p className="text-xs sm:text-sm my-2">
+                        {geminiAnalysis.analysis}
+                      </p>
                     )}
                   </div>
                 )}
@@ -546,10 +555,11 @@ function App() {
                   flightTime={flightTime}
                 />
               </section>
+
               {/* AI Analysis Section */}
               {depTime && arrivalTime && (
-                <section className="w-full  bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/30 p-6 flex flex-col gap-6">
-                  <h2 className="text-xl font-bold text-white border-b border-purple-500/30 pb-2">
+                <section className="w-full bg-slate-800/60 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-purple-500/30 p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
+                  <h2 className="text-lg sm:text-xl font-bold text-white border-b border-purple-500/30 pb-2">
                     Our Recommendations
                   </h2>
                   <GeminiAnalysis
@@ -565,24 +575,24 @@ function App() {
           )}
         </div>
       </main>
-      <footer className="mt-auto py-6 bg-black/40 backdrop-blur-lg border-t border-purple-500/30">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2 text-slate-300">
+      <footer className="mt-auto py-4 sm:py-6 bg-black/40 backdrop-blur-lg border-t border-purple-500/30">
+        <div className="container mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 text-slate-300 text-sm sm:text-base">
               <span className="text-purple-400 font-semibold">Seat Ray</span>
               <span>•</span>
               <span>Made with ❤️ by Ronak</span>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-slate-400">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm text-slate-400">
               <span>© 2025 Seat Ray. All rights reserved.</span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>Flight path visualization tool</span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>Powered by AI analysis</span>
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-slate-700/50 text-xs text-slate-500 text-center">
-            <p>
+          <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700/50 text-xs text-slate-500 text-center">
+            <p className="px-2">
               Seat Ray is a tool for analyzing optimal seating based on sun
               position during flights. All flight data and calculations are for
               informational purposes only.

@@ -129,9 +129,30 @@ const FlightMap: React.FC<FlightMapProps> = ({
 
   const planeDirection = getPlaneDirection();
 
+  const getTimePeriodClass = (time: Date) => {
+    const hour = time.getHours();
+    if (hour >= 5 && hour < 12) return "slider--morning";
+    if (hour >= 12 && hour < 17) return "slider--afternoon";
+    if (hour >= 17 && hour < 20) return "slider--evening";
+    return "slider--night";
+  };
+
+  const getProgressColor = (time: Date) => {
+    const hour = time.getHours();
+    if (hour >= 5 && hour < 12) return "#3b82f6"; // Blue for morning
+    if (hour >= 12 && hour < 17) return "#8b5cf6"; // Purple for afternoon
+    if (hour >= 17 && hour < 20) return "#f59e0b"; // Orange for evening
+    return "#ef4444"; // Red for night
+  };
+
+  const timePeriodClass = getTimePeriodClass(mapTime);
+  const progressColor = getProgressColor(mapTime);
+  const progressPercentage =
+    ((mapTime.getTime() - minTime) / (maxTime - minTime)) * 100;
+
   return (
-    <div className="bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/30 p-6 flex-1 flex flex-col">
-      <div className="h-[400px] rounded-lg overflow-hidden border-2 border-purple-500/30 shadow-inner">
+    <div className="bg-slate-800/60 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-purple-500/30 p-4 sm:p-6 flex-1 flex flex-col">
+      <div className="h-64 sm:h-80 lg:h-96 rounded-lg overflow-hidden border-2 border-purple-500/30 shadow-inner">
         <MapContainer
           center={
             sourceAirport ? [sourceAirport.lat, sourceAirport.lon] : [0, 0]
@@ -167,10 +188,10 @@ const FlightMap: React.FC<FlightMapProps> = ({
               icon={departureIcon}
             >
               <Popup>
-                <div className="font-bold text-purple-600">
+                <div className="font-bold text-purple-600 text-sm sm:text-base">
                   🛫 Departure: {sourceAirport.city} ({sourceAirport.iata})
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600">
                   {sourceAirport.name}
                 </div>
               </Popup>
@@ -184,10 +205,12 @@ const FlightMap: React.FC<FlightMapProps> = ({
               icon={arrivalIcon}
             >
               <Popup>
-                <div className="font-bold text-red-600">
+                <div className="font-bold text-red-600 text-sm sm:text-base">
                   🛬 Arrival: {destAirport.city} ({destAirport.iata})
                 </div>
-                <div className="text-sm text-gray-600">{destAirport.name}</div>
+                <div className="text-xs sm:text-sm text-gray-600">
+                  {destAirport.name}
+                </div>
               </Popup>
             </Marker>
           )}
@@ -209,8 +232,10 @@ const FlightMap: React.FC<FlightMapProps> = ({
               radius={10}
             >
               <Popup>
-                <div className="font-bold text-amber-500">Subsolar Point</div>
-                <div>Sun directly overhead</div>
+                <div className="font-bold text-amber-500 text-sm sm:text-base">
+                  Subsolar Point
+                </div>
+                <div className="text-xs sm:text-sm">Sun directly overhead</div>
               </Popup>
             </CircleMarker>
           )}
@@ -218,15 +243,17 @@ const FlightMap: React.FC<FlightMapProps> = ({
             <Marker
               position={planePos}
               icon={L.divIcon({
-                html: `<div style="transform: rotate(${planeDirection}deg); background: #a855f7; border: 2px solid white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: white; font-size: 12px;">✈️</div>`,
+                html: `<div style="transform: rotate(${planeDirection}deg); background: #a855f7; border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; sm:width: 24px; sm:height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: white; font-size: 10px; sm:font-size: 12px;">✈️</div>`,
                 className: "custom-marker",
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
+                iconSize: [20, 20],
+                iconAnchor: [10, 10],
               })}
             >
               <Popup>
-                <div className="font-bold">✈️ Plane Position</div>
-                <div>
+                <div className="font-bold text-sm sm:text-base">
+                  ✈️ Plane Position
+                </div>
+                <div className="text-xs sm:text-sm">
                   {DateTime.fromJSDate(mapTime).toFormat(
                     "yyyy-LL-dd HH:mm ZZZZ"
                   )}
@@ -245,53 +272,54 @@ const FlightMap: React.FC<FlightMapProps> = ({
               radius={7}
             >
               <Popup>
-                <div className="font-bold text-amber-500">☀️ Sun Position</div>
+                <div className="font-bold text-amber-500 text-sm sm:text-base">
+                  ☀️ Sun Position
+                </div>
               </Popup>
             </CircleMarker>
           )}
         </MapContainer>
       </div>
       {depTime && arrivalTime && (
-        <div className="mt-8">
+        <div className="mt-4 sm:mt-6 lg:mt-8">
           <label
-            className="block text-sm font-semibold mb-2 text-slate-300"
+            className="block text-sm sm:text-base font-semibold mb-2 sm:mb-3 text-slate-300"
             htmlFor="time-slider"
           >
             Select Any Time During The Flight
           </label>
-          <div className="relative mt-10">
-            {/* Start time label */}
-            <div className="absolute left-0 -top-8 text-xs text-slate-400 z-10">
-              {DateTime.fromJSDate(new Date(minTime)).toFormat("HH:mm")}
+          <div className="flex flex-col space-y-2">
+            <div className="flex items-center justify-between text-sm text-gray-300">
+              <span>
+                {DateTime.fromJSDate(new Date(minTime)).toFormat("HH:mm")}
+              </span>
+              <span className="text-purple-400 font-medium">
+                {DateTime.fromJSDate(mapTime).toFormat("HH:mm")}
+              </span>
+              <span>
+                {DateTime.fromJSDate(new Date(maxTime)).toFormat("HH:mm")}
+              </span>
             </div>
 
-            {/* End time label */}
-            <div className="absolute right-0 -top-8 text-xs text-slate-400 z-10">
-              {DateTime.fromJSDate(new Date(maxTime)).toFormat("HH:mm")}
-            </div>
-
-            <input
-              id="time-slider"
-              ref={sliderRef}
-              type="range"
-              min={minTime}
-              max={maxTime}
-              step={10 * 60 * 1000}
-              value={mapTime.getTime()}
-              onChange={(e) => setMapTime(new Date(Number(e.target.value)))}
-              className="w-full accent-purple-500"
-            />
-
-            {/* Current time tooltip that follows the slider */}
-            <div
-              className="absolute -top-10 transform -translate-x-1/2 text-xs text-purple-400 font-medium bg-slate-800 px-2 py-1 rounded border border-purple-500/30 shadow-lg z-20"
-              style={{
-                left: `${
-                  ((mapTime.getTime() - minTime) / (maxTime - minTime)) * 100
-                }%`,
-              }}
-            >
-              {DateTime.fromJSDate(mapTime).toFormat("HH:mm")}
+            <div className="relative">
+              <input
+                id="time-slider"
+                ref={sliderRef}
+                type="range"
+                min={minTime}
+                max={maxTime}
+                step={10 * 60 * 1000}
+                value={mapTime.getTime()}
+                onChange={(e) => setMapTime(new Date(Number(e.target.value)))}
+                className={`w-full h-2 sm:h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider relative z-10 ${timePeriodClass}`}
+                style={{
+                  background: `linear-gradient(to right, 
+                    ${progressColor} 0%, 
+                    ${progressColor} ${progressPercentage}%, 
+                    #374151 ${progressPercentage}%, 
+                    #374151 100%)`,
+                }}
+              />
             </div>
           </div>
         </div>

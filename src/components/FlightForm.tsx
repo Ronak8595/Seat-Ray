@@ -173,11 +173,11 @@ const FlightForm: React.FC<FlightFormProps> = ({
   const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <div className="flex gap-4 items-end">
-        <div className="flex-1">
+    <form className="flex flex-col gap-4 sm:gap-6" onSubmit={handleSubmit}>
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-end">
+        <div className="flex-1 w-full">
           <label
-            className="block text-sm font-semibold mb-1 text-slate-300"
+            className="block text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-slate-300"
             htmlFor="source"
           >
             From
@@ -208,11 +208,11 @@ const FlightForm: React.FC<FlightFormProps> = ({
         <button
           type="button"
           onClick={swapAirports}
-          className="p-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-purple-400 transition-all duration-200 border border-slate-600/50 hover:border-purple-500/50"
+          className="p-2 sm:p-3 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-purple-400 transition-all duration-200 border border-slate-600/50 hover:border-purple-500/50 self-center lg:self-end"
           title="Swap airports"
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 sm:w-5 sm:h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -225,9 +225,9 @@ const FlightForm: React.FC<FlightFormProps> = ({
             />
           </svg>
         </button>
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <label
-            className="block text-sm font-semibold mb-1 text-slate-300"
+            className="block text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-slate-300"
             htmlFor="dest"
           >
             To
@@ -256,10 +256,10 @@ const FlightForm: React.FC<FlightFormProps> = ({
           />
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         <div className="flex-1">
           <label
-            className="block text-sm font-semibold mb-1 text-slate-300"
+            className="block text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-slate-300"
             htmlFor="departure"
           >
             Departure Time
@@ -269,7 +269,7 @@ const FlightForm: React.FC<FlightFormProps> = ({
             type="datetime-local"
             min={minDateTime}
             placeholder="Enter the departure time..."
-            className="w-full rounded-lg px-3 py-2 bg-slate-700/70 text-white placeholder:text-slate-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-slate-700/70 text-white placeholder:text-slate-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm sm:text-base"
             value={departure}
             onChange={(e) => setDeparture(e.target.value)}
             required
@@ -277,7 +277,7 @@ const FlightForm: React.FC<FlightFormProps> = ({
         </div>
         <div className="flex-1">
           <label
-            className="block text-sm font-semibold mb-1 text-slate-300"
+            className="block text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-slate-300"
             htmlFor="flightTime"
           >
             Flight Duration (hrs)
@@ -288,7 +288,7 @@ const FlightForm: React.FC<FlightFormProps> = ({
             step="0.1"
             min="0.1"
             placeholder="Enter the flight duration..."
-            className="w-full rounded-lg px-3 py-2 bg-slate-700/70 text-white placeholder:text-slate-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-slate-700/70 text-white placeholder:text-slate-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm sm:text-base"
             value={flightTime}
             onChange={(e) => setFlightTime(e.target.value)}
             required
@@ -297,7 +297,7 @@ const FlightForm: React.FC<FlightFormProps> = ({
       </div>
       <button
         type="submit"
-        className={`mt-4 w-full py-3 rounded-lg font-bold text-lg text-white shadow-lg transition-all duration-300 ${
+        className={`mt-4 sm:mt-6 w-full py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg text-white shadow-lg transition-all duration-300 ${
           loading || geminiLoading
             ? "bg-slate-600 cursor-not-allowed opacity-60"
             : "bg-gradient-to-r from-purple-600 to-indigo-600 cursor-pointer hover:shadow-purple-500/20 hover:scale-[1.02]"
@@ -309,12 +309,12 @@ const FlightForm: React.FC<FlightFormProps> = ({
           : "Get Path and Sun Events"}
       </button>
       {error && (
-        <div className="mt-2 p-3 bg-red-500/80 rounded-lg text-white font-semibold">
+        <div className="mt-2 p-3 sm:p-4 bg-red-500/80 rounded-lg text-white font-semibold text-sm sm:text-base">
           {error}
         </div>
       )}
       {dstWarning && (
-        <div className="mt-2 p-3 bg-purple-500/80 rounded-lg text-white font-semibold whitespace-pre-line">
+        <div className="mt-2 p-3 sm:p-4 bg-purple-500/80 rounded-lg text-white font-semibold whitespace-pre-line text-sm sm:text-base">
           {dstWarning}
         </div>
       )}

@@ -81,3 +81,240 @@ input[type="range"]::-moz-range-track {
   height: 6px;
   border-radius: 3px;
 }
+
+/* Custom slider styles */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6),
+    0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6),
+    0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.slider::-webkit-slider-track {
+  background: transparent;
+  border-radius: 8px;
+  height: 8px;
+}
+
+.slider::-moz-range-track {
+  background: transparent;
+  border-radius: 8px;
+  height: 8px;
+  border: none;
+}
+
+/* Enhanced slider track with glow effect */
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  border-radius: 4px;
+  transform: translateY(-50%);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+  z-index: -1;
+}
+
+/* Dynamic color classes for different time periods */
+.slider--morning::-webkit-slider-thumb {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.slider--morning::-moz-range-thumb {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.slider--afternoon::-webkit-slider-thumb {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4),
+    0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.slider--afternoon::-moz-range-thumb {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4),
+    0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.slider--evening::-webkit-slider-thumb {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4),
+    0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.slider--evening::-moz-range-thumb {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4),
+    0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.slider--night::-webkit-slider-thumb {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4), 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.slider--night::-moz-range-thumb {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4), 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+/* Leaflet map customizations */
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 8px;
+  color: white;
+}
+
+.leaflet-popup-tip {
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.leaflet-popup-close-button {
+  color: #a855f7 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #8b5cf6 !important;
+}
+
+/* React Select customizations */
+.react-select__control {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  border: 2px solid transparent !important;
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  box-shadow: none !important;
+}
+
+.react-select__control:hover {
+  border-color: #a855f7 !important;
+}
+
+.react-select__control--is-focused {
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2) !important;
+}
+
+.react-select__menu {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.5) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+  z-index: 1000 !important;
+}
+
+.react-select__option {
+  background-color: transparent !important;
+  color: #d1d5db !important;
+  padding: 12px 16px !important;
+  cursor: pointer !important;
+  margin: 2px 8px !important;
+  border-radius: 6px !important;
+}
+
+.react-select__option:hover {
+  background-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+.react-select__option--is-selected {
+  background-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+.react-select__single-value {
+  color: #d1d5db !important;
+  font-weight: 500 !important;
+}
+
+.react-select__input {
+  color: #d1d5db !important;
+}
+
+.react-select__placeholder {
+  color: #9ca3af !important;
+}
+
+.react-select__no-options-message {
+  color: #9ca3af !important;
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  padding: 16px !important;
+}
+
+.react-select__menu-list {
+  padding: 4px !important;
+}
